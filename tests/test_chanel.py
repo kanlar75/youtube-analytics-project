@@ -14,4 +14,4 @@ def test_print_info(obj_chanel, test_data):
     s = io.StringIO()
     with contextlib.redirect_stdout(s):
         obj_chanel.print_info()
-    assert s.getvalue() == f'{test_data}"\n"'
+    assert s.getvalue() == f'{test_data}'
