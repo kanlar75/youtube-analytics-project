@@ -6,16 +6,54 @@ from googleapiclient.discovery import build
 # Получаем ключ API из переменной среды
 api_key = os.getenv('YOU_TUBE_API_KEY')
 
-# создаем специальный объект для работы с API
-youtube = build('youtube', 'v3', developerKey=api_key)
-
 
 class Channel:
     """ Класс для ютуб-канала. """
 
-    def __init__(self, channel_id: str) -> None:
+    # объект для работы с API
+    youtube = None
+
+    def __init__(self, id_str: str) -> None:
         """ Экземпляр инициализируется по id канала. """
-        self.channel_id = channel_id
+        data = Channel.get_service().channels().list(id=id_str,
+                                                     part='snippet,'
+                                                          'statistics').execute()
+
+        self._channel_id = id_str
+        self.title = data['items'][0]['snippet']['title']
+        self.description = \
+            data['items'][0]['snippet']['description'].split('\n')[0]
+        self.url = f"https://www.youtube.com/channel/" \
+                   f"{data['items'][0]['id']}"
+        self.subscriber = data['items'][0]['statistics']['subscriberCount']
+        self.video_count = data['items'][0]['statistics']['videoCount']
+        self.count_viewers = data['items'][0]['statistics']['viewCount']
+
+    @classmethod
+    def get_service(cls):
+        """ Возвращает объект для работы с YouTube API. """
+
+        cls.youtube = build('youtube', 'v3', developerKey=api_key)
+        return cls.youtube
+
+    # возвращаем id канала
+    @property
+    def channel_id(self):
+        return self._channel_id
+
+    # @channel_id.setter
+    # def channel_id(self, value):
+    #     if isinstance(value, str):
+    #         self._channel_id = value
+
+    def to_json(self, file_name='moscowpython.json'):
+        script_path = os.path.abspath(__file__)
+        path_list = script_path.split(os.sep)
+        script_directory = path_list[0:len(path_list) - 1]
+        rel_path = f"/{file_name}"
+        path = "/".join(script_directory) + "/" + rel_path
+        with open(path, 'w') as f:
+            json.dump(self.__dict__, f, indent=4, ensure_ascii=False)
 
     def print_info(self) -> None:
         """
@@ -23,10 +61,6 @@ class Channel:
         формате с отступами.
         """
 
-        data = youtube.channels().list(id=self.channel_id,
-                                          part='snippet,statistics').execute()
+        data = Channel.get_service().channels().list(id=self.channel_id,
+                                                     part='snippet,statistics').execute()
         print(json.dumps(data, indent=2, ensure_ascii=False))
-
-
-
-
