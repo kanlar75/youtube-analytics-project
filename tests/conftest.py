@@ -6,15 +6,40 @@ from src.channel import Channel
 
 
 @pytest.fixture
-def obj_chanel():
-    test_obj = Channel('UC-OVMPlMA3-YCIeg4z5z23A')
-    return test_obj
+def test_obj1():
+    """ channel moscowpython"""
+
+    test_obj1 = Channel('UC-OVMPlMA3-YCIeg4z5z23A')
+    return test_obj1
 
 
 @pytest.fixture
-def test_data(obj_chanel):
+def test_obj2():
+    """ channel highload """
 
-    data = Channel.get_service().channels().list(id=obj_chanel.channel_id,
+    test_obj2 = Channel('UCwHL6WHUarjGfUM_586me8w')
+    return test_obj2
+
+
+@pytest.fixture
+def test_obj1_sub():
+    """ channel moscowpython"""
+
+    test_obj1 = Channel('UC-OVMPlMA3-YCIeg4z5z23A')
+    return int(test_obj1.subscriber)
+
+
+@pytest.fixture
+def test_obj2_sub():
+    """ channel highload """
+
+    test_obj2 = Channel('UCwHL6WHUarjGfUM_586me8w')
+    return int(test_obj2.subscriber)
+
+
+@pytest.fixture
+def test_data(test_obj1):
+    data = Channel.get_service().channels().list(id=test_obj1.channel_id,
                                                  part='snippet,statistics').execute()
     response = json.dumps(data, indent=2, ensure_ascii=False)
     return response
