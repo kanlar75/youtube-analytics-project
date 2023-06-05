@@ -38,14 +38,13 @@ def test_str(test_obj1):
 
 # Тест магических методов. """
 def test_magic(test_obj1, test_obj2, test_obj1_sub, test_obj2_sub):
-    assert test_obj1.__lt__(test_obj2) is True
-    assert test_obj1.__le__(test_obj2) is True
-    assert test_obj1.__gt__(test_obj2) is False
-    assert test_obj1.__ge__(test_obj2) is False
-    assert test_obj1.__eq__(test_obj2) is False
+    assert (test_obj1 < test_obj2) is True
+    assert (test_obj1 <= test_obj2) is True
+    assert (test_obj1 > test_obj2) is False
+    assert (test_obj1 >= test_obj2) is False
+    assert (test_obj1 == test_obj2) is False
     assert test_obj1 + test_obj2 == test_obj1_sub + test_obj2_sub
     assert test_obj1 - test_obj2 == test_obj1_sub - test_obj2_sub
-    assert test_obj1.__ge__(test_obj2) is False
 
 
 # Тест Raise в методе класса, передаем строку и число
