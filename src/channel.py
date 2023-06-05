@@ -18,16 +18,63 @@ class Channel:
         data = Channel.get_service().channels().list(id=id_str,
                                                      part='snippet,'
                                                           'statistics').execute()
-
         self._channel_id = id_str
         self.title = data['items'][0]['snippet']['title']
         self.description = \
             data['items'][0]['snippet']['description'].split('\n')[0]
         self.url = f"https://www.youtube.com/channel/" \
                    f"{data['items'][0]['id']}"
-        self.subscriber = data['items'][0]['statistics']['subscriberCount']
-        self.video_count = data['items'][0]['statistics']['videoCount']
-        self.count_viewers = data['items'][0]['statistics']['viewCount']
+        self.subscriber = int(data['items'][0]['statistics'][
+                                  'subscriberCount'])
+        self.video_count = int(data['items'][0]['statistics']['videoCount'])
+        self.count_viewers = int(data['items'][0]['statistics']['viewCount'])
+
+    def __str__(self):
+        """ Строковое представление экземпляра: наименование канала и url"""
+
+        return f'{self.title} ({self.url})'
+
+    def __eq__(self, other):
+        """ Возвращает True или False (равенство числа подписчиков) """
+
+        obj = self.is_belongs_to_class(other)
+        return self.subscriber == obj
+
+    def __add__(self, other):
+        """ Возвращает сумму числа подписчиков двух экземпляров """
+
+        obj = self.is_belongs_to_class(other)
+        return self.subscriber + obj
+
+    def __sub__(self, other):
+        """ Возвращает разность числа подписчиков двух экземпляров """
+
+        obj = self.is_belongs_to_class(other)
+        return self.subscriber - obj
+
+    def __lt__(self, other):
+        """ Возвращает True или False """
+
+        obj = self.is_belongs_to_class(other)
+        return self.subscriber < obj
+
+    def __le__(self, other):
+        """ Возвращает True или False """
+
+        obj = self.is_belongs_to_class(other)
+        return self.subscriber <= obj
+
+    def __gt__(self, other):
+        """ Возвращает True или False """
+
+        obj = self.is_belongs_to_class(other)
+        return self.subscriber > obj
+
+    def __ge__(self, other):
+        """ Возвращает True или False """
+
+        obj = self.is_belongs_to_class(other)
+        return self.subscriber >= obj
 
     @classmethod
     def get_service(cls):
@@ -35,6 +82,13 @@ class Channel:
 
         cls.youtube = build('youtube', 'v3', developerKey=api_key)
         return cls.youtube
+
+    @classmethod
+    def is_belongs_to_class(cls, obj):
+        if not isinstance(obj, Channel):
+            raise TypeError('Операнд справа должен быть экземпляром класса '
+                            'Channel!')
+        return obj.subscriber
 
     # возвращаем id канала
     @property
