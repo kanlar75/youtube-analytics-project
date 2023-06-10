@@ -3,6 +3,7 @@ import json
 import pytest
 
 from src.channel import Channel
+from src.video import Video, PLVideo
 
 
 @pytest.fixture
@@ -22,11 +23,27 @@ def test_obj2():
 
 
 @pytest.fixture
+def test_obj3():
+    """ объект класса Vidio """
+
+    test_obj3 = Video('AWX4JnAnjBE')
+    return test_obj3
+
+
+@pytest.fixture
+def test_obj4():
+    """ объект класса PLVideo """
+
+    test_obj4 = PLVideo('4fObz_qw9u4', 'PLv_zOGKKxVph_8g2Mqc3LMhj0M_BfasbC')
+    return test_obj4
+
+
+@pytest.fixture
 def test_obj1_sub():
     """ channel moscowpython"""
 
     test_obj1 = Channel('UC-OVMPlMA3-YCIeg4z5z23A')
-    return int(test_obj1.subscriber)
+    return test_obj1.subscriber
 
 
 @pytest.fixture
@@ -34,7 +51,7 @@ def test_obj2_sub():
     """ channel highload """
 
     test_obj2 = Channel('UCwHL6WHUarjGfUM_586me8w')
-    return int(test_obj2.subscriber)
+    return test_obj2.subscriber
 
 
 @pytest.fixture
