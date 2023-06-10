@@ -11,12 +11,9 @@ class Video:
         self.data = self.get_data(id_str)
 
         self.id_video = id_str
-        self.title = self.data['items'][0]['snippet'][
-            'title']
-        self.viewers = self.data['items'][0][
-            'statistics']['viewCount']
-        self.likes = self.data['items'][0][
-            'statistics']['likeCount']
+        self.title = self.data['items'][0]['snippet']['title']
+        self.viewers = self.data['items'][0]['statistics']['viewCount']
+        self.likes = self.data['items'][0]['statistics']['likeCount']
         self.url = f'https://www.youtube.com/watch?v={self.id_video}'
 
     @classmethod
