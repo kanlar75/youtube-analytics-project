@@ -48,7 +48,7 @@ def test_magic(test_obj1, test_obj2, test_obj1_sub, test_obj2_sub):
 
 
 # Тест Raise в методе класса, передаем строку и число
-def test_is_belongs_to_class(test_obj1):
+def test_validate(test_obj1):
     with pytest.raises(TypeError):
-        test_obj1.is_belongs_to_class("test")
-        test_obj1.is_belongs_to_class(1)
+        test_obj1.validate("test")
+        test_obj1.validate(1)
