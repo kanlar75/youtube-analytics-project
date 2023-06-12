@@ -17,7 +17,6 @@ class Channel:
     def __init__(self, id_str: str) -> None:
         """ Экземпляр инициализируется по id канала. """
 
-        # self.youtube = self.get_service()
         self.data = self.get_data(id_str)
         self._channel_id = id_str
         self.title = self.data['items'][0]['snippet']['title']
@@ -56,31 +55,33 @@ class Channel:
         return self.subscriber - obj
 
     def __lt__(self, other):
-        """ Возвращает True или False """
+        """ Возвращает True или False, по числу подписчиков экземпляров. """
 
         obj = self.validate(other)
         return self.subscriber < obj
 
     def __le__(self, other):
-        """ Возвращает True или False """
+        """ Возвращает True или False, по числу подписчиков экземпляров. """
 
         obj = self.validate(other)
         return self.subscriber <= obj
 
     def __gt__(self, other):
-        """ Возвращает True или False """
+        """ Возвращает True или False, по числу подписчиков экземпляров. """
 
         obj = self.validate(other)
         return self.subscriber > obj
 
     def __ge__(self, other):
-        """ Возвращает True или False """
+        """ Возвращает True или False, по числу подписчиков экземпляров. """
 
         obj = self.validate(other)
         return self.subscriber >= obj
 
     @classmethod
     def get_data(cls, id_str):
+        """ Получает данные от YouTube. """
+
         cls.youtube = cls.get_service()
         cls.data = cls.youtube.channels().list(id=id_str, part='snippet, ' \
                                                                'statistics').execute()
@@ -95,14 +96,17 @@ class Channel:
 
     @classmethod
     def validate(cls, obj):
+        """ Проверяет принадлежность объекта к классу Channel. """
+
         if not isinstance(obj, Channel):
             raise TypeError('Операнд справа должен быть экземпляром класса '
                             'Channel!')
         return obj.subscriber
 
-    # возвращаем id канала
     @property
     def channel_id(self):
+        """ Возвращаем id канала. """
+
         return self._channel_id
 
     # @channel_id.setter
@@ -111,6 +115,8 @@ class Channel:
     #         self._channel_id = value
 
     def to_json(self, file_name='moscowpython.json'):
+        """ Запись атрибутов в файл 'moscowpython.json'. """
+
         script_path = os.path.abspath(__file__)
         path_list = script_path.split(os.sep)
         script_directory = path_list[0:len(path_list) - 1]
