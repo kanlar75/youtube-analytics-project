@@ -12,22 +12,24 @@ class Channel:
 
     # объект для работы с API
     youtube = None
+    data = None
 
     def __init__(self, id_str: str) -> None:
         """ Экземпляр инициализируется по id канала. """
-        data = Channel.get_service().channels().list(id=id_str,
-                                                     part='snippet,'
-                                                          'statistics').execute()
+
+        self.data = self.get_data(id_str)
         self._channel_id = id_str
-        self.title = data['items'][0]['snippet']['title']
+        self.title = self.data['items'][0]['snippet']['title']
         self.description = \
-            data['items'][0]['snippet']['description'].split('\n')[0]
+            self.data['items'][0]['snippet']['description'].split('\n')[0]
         self.url = f"https://www.youtube.com/channel/" \
-                   f"{data['items'][0]['id']}"
-        self.subscriber = int(data['items'][0]['statistics'][
+                   f"{self.data['items'][0]['id']}"
+        self.subscriber = int(self.data['items'][0]['statistics'][
                                   'subscriberCount'])
-        self.video_count = int(data['items'][0]['statistics']['videoCount'])
-        self.count_viewers = int(data['items'][0]['statistics']['viewCount'])
+        self.video_count = int(self.data['items'][0]['statistics'][
+                                   'videoCount'])
+        self.count_viewers = int(self.data['items'][0]['statistics'][
+                                     'viewCount'])
 
     def __str__(self):
         """ Строковое представление экземпляра: наименование канала и url"""
@@ -37,44 +39,53 @@ class Channel:
     def __eq__(self, other):
         """ Возвращает True или False (равенство числа подписчиков) """
 
-        obj = self.is_belongs_to_class(other)
+        obj = self.validate(other)
         return self.subscriber == obj
 
     def __add__(self, other):
         """ Возвращает сумму числа подписчиков двух экземпляров """
 
-        obj = self.is_belongs_to_class(other)
+        obj = self.validate(other)
         return self.subscriber + obj
 
     def __sub__(self, other):
         """ Возвращает разность числа подписчиков двух экземпляров """
 
-        obj = self.is_belongs_to_class(other)
+        obj = self.validate(other)
         return self.subscriber - obj
 
     def __lt__(self, other):
-        """ Возвращает True или False """
+        """ Возвращает True или False, по числу подписчиков экземпляров. """
 
-        obj = self.is_belongs_to_class(other)
+        obj = self.validate(other)
         return self.subscriber < obj
 
     def __le__(self, other):
-        """ Возвращает True или False """
+        """ Возвращает True или False, по числу подписчиков экземпляров. """
 
-        obj = self.is_belongs_to_class(other)
+        obj = self.validate(other)
         return self.subscriber <= obj
 
     def __gt__(self, other):
-        """ Возвращает True или False """
+        """ Возвращает True или False, по числу подписчиков экземпляров. """
 
-        obj = self.is_belongs_to_class(other)
+        obj = self.validate(other)
         return self.subscriber > obj
 
     def __ge__(self, other):
-        """ Возвращает True или False """
+        """ Возвращает True или False, по числу подписчиков экземпляров. """
 
-        obj = self.is_belongs_to_class(other)
+        obj = self.validate(other)
         return self.subscriber >= obj
+
+    @classmethod
+    def get_data(cls, id_str):
+        """ Получает данные от YouTube. """
+
+        cls.youtube = cls.get_service()
+        cls.data = cls.youtube.channels().list(id=id_str, part='snippet, ' \
+                                                               'statistics').execute()
+        return cls.data
 
     @classmethod
     def get_service(cls):
@@ -84,15 +95,18 @@ class Channel:
         return cls.youtube
 
     @classmethod
-    def is_belongs_to_class(cls, obj):
+    def validate(cls, obj):
+        """ Проверяет принадлежность объекта к классу Channel. """
+
         if not isinstance(obj, Channel):
             raise TypeError('Операнд справа должен быть экземпляром класса '
                             'Channel!')
         return obj.subscriber
 
-    # возвращаем id канала
     @property
     def channel_id(self):
+        """ Возвращаем id канала. """
+
         return self._channel_id
 
     # @channel_id.setter
@@ -101,6 +115,8 @@ class Channel:
     #         self._channel_id = value
 
     def to_json(self, file_name='moscowpython.json'):
+        """ Запись атрибутов в файл 'moscowpython.json'. """
+
         script_path = os.path.abspath(__file__)
         path_list = script_path.split(os.sep)
         script_directory = path_list[0:len(path_list) - 1]
@@ -115,6 +131,6 @@ class Channel:
         формате с отступами.
         """
 
-        data = Channel.get_service().channels().list(id=self.channel_id,
-                                                     part='snippet,statistics').execute()
+        data = self.get_service().channels().list(id=self.channel_id,
+                                                  part='snippet,statistics').execute()
         print(json.dumps(data, indent=2, ensure_ascii=False))
