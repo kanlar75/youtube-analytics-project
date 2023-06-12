@@ -8,7 +8,7 @@ from src.video import Video, PLVideo
 
 @pytest.fixture
 def test_obj1():
-    """ channel moscowpython"""
+    """ Тестовый объект channel moscowpython"""
 
     test_obj1 = Channel('UC-OVMPlMA3-YCIeg4z5z23A')
     return test_obj1
@@ -16,7 +16,7 @@ def test_obj1():
 
 @pytest.fixture
 def test_obj2():
-    """ channel highload """
+    """ Тестовый объект channel highload """
 
     test_obj2 = Channel('UCwHL6WHUarjGfUM_586me8w')
     return test_obj2
