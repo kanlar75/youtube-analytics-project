@@ -4,6 +4,8 @@ from src.channel import api_key
 
 
 class Video:
+    """ Класс для видео ютуб-канала. """
+
     data = None
     youtube = None
 
@@ -25,18 +27,21 @@ class Video:
 
     @classmethod
     def get_data(cls, id_str):
+        """ Получает данные от YouTube. """
+
         cls.youtube = cls.get_service()
         cls.data = cls.youtube.videos().list(id=id_str, part='snippet, ' \
                                                              'statistics').execute()
         return cls.data
 
     def __str__(self):
-        """ Строковое представление экземпляра: наименование канала и url"""
+        """ Строковое представление экземпляра: наименование канала. """
 
         return f'{self.title}'
 
 
 class PLVideo(Video):
+    """ Класс для видео и плейлистов ютуб-канала. """
 
     def __init__(self, id_video, id_playlist):
         super().__init__(id_video)
