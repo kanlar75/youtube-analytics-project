@@ -3,6 +3,7 @@ import json
 import pytest
 
 from src.channel import Channel
+from src.playlist import PlayList
 from src.video import Video, PLVideo
 
 
@@ -36,6 +37,14 @@ def test_obj4():
 
     test_obj4 = PLVideo('4fObz_qw9u4', 'PLv_zOGKKxVph_8g2Mqc3LMhj0M_BfasbC')
     return test_obj4
+
+
+@pytest.fixture
+def test_obj5():
+    """ Тестовый объект Playlist """
+
+    test_obj5 = PlayList('PLv_zOGKKxVpj-n2qLkEM2Hj96LO6uqgQw')
+    return test_obj5
 
 
 @pytest.fixture
