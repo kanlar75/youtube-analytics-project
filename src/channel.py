@@ -39,44 +39,44 @@ class Channel:
     def __eq__(self, other):
         """ Возвращает True или False (равенство числа подписчиков) """
 
-        obj = self.validate(other)
-        return self.subscriber == obj
+        if self.validate(other):
+            return self.subscriber == other.subscriber
 
     def __add__(self, other):
         """ Возвращает сумму числа подписчиков двух экземпляров """
 
-        obj = self.validate(other)
-        return self.subscriber + obj
+        if self.validate(other):
+            return self.subscriber + other.subscriber
 
     def __sub__(self, other):
         """ Возвращает разность числа подписчиков двух экземпляров """
 
-        obj = self.validate(other)
-        return self.subscriber - obj
+        if self.validate(other):
+            return self.subscriber - other.subscriber
 
     def __lt__(self, other):
         """ Возвращает True или False, по числу подписчиков экземпляров. """
 
-        obj = self.validate(other)
-        return self.subscriber < obj
+        if self.validate(other):
+            return self.subscriber < other.subscriber
 
     def __le__(self, other):
         """ Возвращает True или False, по числу подписчиков экземпляров. """
 
-        obj = self.validate(other)
-        return self.subscriber <= obj
+        if self.validate(other):
+            return self.subscriber <= other.subscriber
 
     def __gt__(self, other):
         """ Возвращает True или False, по числу подписчиков экземпляров. """
 
-        obj = self.validate(other)
-        return self.subscriber > obj
+        if self.validate(other):
+            return self.subscriber > other.subscriber
 
     def __ge__(self, other):
         """ Возвращает True или False, по числу подписчиков экземпляров. """
 
-        obj = self.validate(other)
-        return self.subscriber >= obj
+        if self.validate(other):
+            return self.subscriber >= other.subscriber
 
     @classmethod
     def get_data(cls, id_str):
@@ -101,7 +101,7 @@ class Channel:
         if not isinstance(obj, Channel):
             raise TypeError('Операнд справа должен быть экземпляром класса '
                             'Channel!')
-        return obj.subscriber
+        return True
 
     @property
     def channel_id(self):
