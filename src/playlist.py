@@ -1,4 +1,4 @@
-from datetime import timedelta
+import datetime
 
 import isodate
 from googleapiclient.discovery import build
@@ -60,7 +60,7 @@ class PlayList(MixVideo, Video):
             part='contentDetails,statistics',
             id=','.join(self.get_video_id())
         ).execute()
-        total_time = timedelta()
+        total_time = datetime.timedelta()
 
         for video in video_response['items']:
             iso_8601_duration = video['contentDetails']['duration']

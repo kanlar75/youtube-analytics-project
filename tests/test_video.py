@@ -1,3 +1,5 @@
+import pytest
+
 from src.video import Video, PLVideo
 
 
@@ -17,3 +19,10 @@ def test_init_plv(test_obj4):
 
 def test_str(test_obj3):
     assert test_obj3.__str__() == 'GIL в Python: зачем он нужен и как с этим жить'
+
+
+# Тест Raise в методе класса validate, передаем строку и число
+def test_validate(test_obj3):
+    with pytest.raises(TypeError):
+        test_obj3.validate("test")
+        test_obj3.validate(1)
