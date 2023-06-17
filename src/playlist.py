@@ -4,7 +4,7 @@ import isodate
 from googleapiclient.discovery import build
 from src.channel import api_key
 
-from src.video import Video
+from src.video import Video, PLVideo
 
 
 class MixVideo:
@@ -35,7 +35,7 @@ class MixVideo:
         return video_ids
 
 
-class PlayList(MixVideo):
+class PlayList(MixVideo, PLVideo):
 
     def __init__(self, id_playlist):
         super().__init__(id_playlist)
