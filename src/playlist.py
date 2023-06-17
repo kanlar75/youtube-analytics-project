@@ -44,7 +44,7 @@ class PlayList(MixVideo, PLVideo):
         self.url = f'https://www.youtube.com/playlist?list={id_playlist}'
 
     def get_data(self, id_playlist):
-        """ Получает данные от YouTube. """
+        """ Получает данные от YouTube по id плейлиста. """
 
         self.data = self.youtube.playlists().list(part='snippet',
                                                       id=id_playlist).execute()
