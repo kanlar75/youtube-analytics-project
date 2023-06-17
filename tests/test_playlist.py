@@ -1,5 +1,7 @@
 import datetime
 
+import pytest
+
 
 # Тестируем инициализацию класса PlayList
 
@@ -22,3 +24,8 @@ def test_total_duration(test_obj5):
 # количеству лайков)
 def test_show_best_video(test_obj5):
     assert test_obj5.show_best_video() == "https://youtube/cUGyMzWQcGM"
+
+
+# Тест __str__
+def test_str(test_obj5):
+    assert str(test_obj5.total_duration) == "1:49:52"
