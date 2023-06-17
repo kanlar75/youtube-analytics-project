@@ -17,6 +17,7 @@ def test_init_plv(test_obj4):
     assert test_obj4.id_playlist == "PLv_zOGKKxVph_8g2Mqc3LMhj0M_BfasbC"
 
 
+# Тест __str__
 def test_str(test_obj3):
     assert test_obj3.__str__() == 'GIL в Python: зачем он нужен и как с этим жить'
 
