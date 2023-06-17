@@ -8,6 +8,10 @@ from src.video import Video
 
 
 class MixVideo:
+    """
+    Класс с методами получения данных по видеороликам в плейлисте и получением
+    списка их id.
+    """
 
     youtube = build('youtube', 'v3', developerKey=api_key)
 
@@ -47,8 +51,10 @@ class PlayList(MixVideo):
         return self.data
 
     def show_best_video(self):
-        """ Возвращаем ссылку на самое популярное видео из плейлиста (по
-        количеству лайков). """
+        """
+        Возвращает ссылку на самое популярное видео из плейлиста (по
+        количеству лайков).
+        """
 
         lst_video = []
         for video in self.get_video_id():
@@ -59,8 +65,10 @@ class PlayList(MixVideo):
 
     @property
     def total_duration(self):
-        """ Возвращаем объект класса `datetime.timedelta` с суммарной
-        длительность плейлиста. """
+        """
+        Возвращает объект класса `datetime.timedelta` с суммарной
+        длительность плейлиста.
+        """
 
         video_response = self.youtube.videos().list(
             part='contentDetails,statistics',
