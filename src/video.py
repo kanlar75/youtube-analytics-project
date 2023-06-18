@@ -36,7 +36,7 @@ class Video:
 
     @classmethod
     def validate(cls, obj):
-        """ Проверяет принадлежность объекта к классу Channel. """
+        """ Проверяет принадлежность объекта к классу Video. """
 
         if not isinstance(obj, Video):
             raise TypeError('Операнд справа должен быть экземпляром класса '
