@@ -9,7 +9,7 @@ from src.video import Video, PLVideo
 
 @pytest.fixture
 def test_obj1():
-    """ Тестовый объект channel moscowpython"""
+    """ Тестовый объект класса Channel (moscowpython). """
 
     test_obj1 = Channel('UC-OVMPlMA3-YCIeg4z5z23A')
     return test_obj1
@@ -17,7 +17,7 @@ def test_obj1():
 
 @pytest.fixture
 def test_obj2():
-    """ Тестовый объект channel highload """
+    """ Тестовый объект класса Channel (highload). """
 
     test_obj2 = Channel('UCwHL6WHUarjGfUM_586me8w')
     return test_obj2
@@ -25,7 +25,7 @@ def test_obj2():
 
 @pytest.fixture
 def test_obj3():
-    """ Тестовый объект класса Vidio """
+    """ Тестовый объект класса Vidio. """
 
     test_obj3 = Video('AWX4JnAnjBE')
     return test_obj3
@@ -33,7 +33,7 @@ def test_obj3():
 
 @pytest.fixture
 def test_obj4():
-    """ Тестовый объект класса PLVideo """
+    """ Тестовый объект класса PLVideo. """
 
     test_obj4 = PLVideo('4fObz_qw9u4', 'PLv_zOGKKxVph_8g2Mqc3LMhj0M_BfasbC')
     return test_obj4
@@ -41,7 +41,7 @@ def test_obj4():
 
 @pytest.fixture
 def test_obj5():
-    """ Тестовый объект Playlist """
+    """ Тестовый объект класса Playlist. """
 
     test_obj5 = PlayList('PLv_zOGKKxVpj-n2qLkEM2Hj96LO6uqgQw')
     return test_obj5
@@ -49,7 +49,7 @@ def test_obj5():
 
 @pytest.fixture
 def test_obj1_sub():
-    """ channel moscowpython, число подписчиков. """
+    """ Channel moscowpython, число подписчиков. """
 
     test_obj1 = Channel('UC-OVMPlMA3-YCIeg4z5z23A')
     return test_obj1.subscriber
@@ -57,7 +57,7 @@ def test_obj1_sub():
 
 @pytest.fixture
 def test_obj2_sub():
-    """ channel highload, число подписчиков. """
+    """ Channel highload, число подписчиков. """
 
     test_obj2 = Channel('UCwHL6WHUarjGfUM_586me8w')
     return test_obj2.subscriber
