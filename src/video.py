@@ -54,7 +54,7 @@ class Video:
         """ Возвращает True или False, по числу likes экземпляров. """
 
         if self.validate(other):
-            return self.likes < other.likes
+            return self.like_count < other.like_count
 
 
 class PLVideo(Video):

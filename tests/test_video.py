@@ -8,6 +8,9 @@ def test_init_video(test_obj3):
     assert isinstance(test_obj3, Video)
     obj3 = Video('AWX4JnAnjBE')
     assert obj3.id_video == "AWX4JnAnjBE"
+    obj3 = Video('*********')
+    assert obj3.id_video == "*********"
+    assert obj3.title is None
 
 
 # Тестируем инициализацию класса PLVideo
@@ -19,7 +22,8 @@ def test_init_plv(test_obj4):
 
 # Тест __str__
 def test_str(test_obj3):
-    assert test_obj3.__str__() == 'GIL в Python: зачем он нужен и как с этим жить'
+    assert test_obj3.__str__() == 'GIL в Python: зачем он нужен и как с ' \
+                                  'этим жить'
 
 
 # Тест Raise в методе класса validate, передаем строку и число
@@ -27,3 +31,4 @@ def test_validate(test_obj3):
     with pytest.raises(TypeError):
         test_obj3.validate("test")
         test_obj3.validate(1)
+
